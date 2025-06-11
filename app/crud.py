@@ -9,10 +9,10 @@ def create_sale(db: Session, sale_data: dict):
     return sale
 
 def get_total_revenue(db: Session):
-    return db.query(Sale).with_entities(Sale.revenue).all()
+    return db.query(Sale).with_entities(Sale.revenue*Sale.quantity).all()
 
 def get_all_sales(db: Session):
-    return db.query(Sale.item, Sale.revenue).all()
+    return db.query(Sale.item, Sale.revenue*Sale.quantity).all()
 
 def get_sales_by_category(db: Session):
-    return db.query(Sale.category, Sale.revenue).all()
+    return db.query(Sale.category, Sale.revenue*Sale.quantity).all()

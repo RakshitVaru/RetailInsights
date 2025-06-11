@@ -5,7 +5,8 @@ import streamlit as st
 import pandas as pd
 import requests
 
-API_URL = "http://localhost:8000"
+import os
+API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 st.set_page_config(page_title="Retail Insights Dashboard", layout="wide")
 st.title("📊 Retail Insights Dashboard")
@@ -43,14 +44,7 @@ if top_items_res.status_code == 200:
         st.info("No item data available.")
 else:
     st.warning("Could not load top items")
-    # # Show Top Selling Items
-# top_items_res = requests.get(f"{API_URL}/sales/top-items")
-# if top_items_res.status_code == 200:
-#     top_items_df = pd.DataFrame(top_items_res.json())
-#     st.subheader("🏆 Top Selling Items")
-#     st.bar_chart(top_items_df.set_index("item"))
-# else:
-#     st.warning("Could not load top items")
+
 
 # Show Sales by Category
 category_res = requests.get(f"{API_URL}/sales/by-category")
